@@ -93,7 +93,7 @@ const GlowCard = ({ children, className = "", scaleOnHover = true, onClick }) =>
 };
 
 const App = () => {
-  const [lang, setLang] = useState('zh');
+  const [lang, setLang] = useState('en');
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
