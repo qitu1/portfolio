@@ -317,13 +317,13 @@ const App = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#07090e] via-transparent to-transparent opacity-60" />
                   </div>
                   <div>
-                    <div className="inline-block px-3 py-1 bg-blue-500/5 text-blue-400 rounded-sm text-[10px] font-black tracking-widest uppercase mb-6 border border-blue-500/10">{item.date}</div>
-                    <h3 className="text-4xl font-black text-white mb-4 tracking-tighter uppercase leading-tight">{item.company}</h3>
-                    <p className="text-blue-400 font-black text-[11px] uppercase tracking-[0.3em] mb-8">{item.role}</p>
-                    <p className="text-lg text-slate-400 leading-relaxed mb-10">{item.desc}</p>
+                    <div className="inline-block px-3 py-1 bg-blue-500/5 text-blue-400 rounded-sm text-[9px] sm:text-[10px] font-black tracking-widest uppercase mb-4 sm:mb-6 border border-blue-500/10">{item.date}</div>
+                    <h3 className="text-2xl sm:text-4xl font-black text-white mb-2 sm:mb-4 tracking-tighter uppercase leading-tight">{item.company}</h3>
+                    <p className="text-blue-400 font-black text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-8">{item.role}</p>
+                    <p className="text-sm sm:text-lg text-slate-400 leading-relaxed mb-6 sm:mb-10">{item.desc}</p>
                     <div className="flex gap-4 items-center group/link cursor-pointer">
-                       <span className="w-12 h-px bg-blue-800 group-hover/link:w-16 transition-all duration-300"></span>
-                       <span className="text-[10px] font-bold tracking-widest text-blue-400 uppercase">View Details</span>
+                       <span className="w-8 sm:w-12 h-px bg-blue-800 group-hover/link:w-12 sm:group-hover/link:w-16 transition-all duration-300"></span>
+                       <span className="text-[9px] sm:text-[10px] font-bold tracking-widest text-blue-400 uppercase">View Details</span>
                     </div>
                   </div>
                 </div>
