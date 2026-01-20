@@ -75,8 +75,9 @@ const GlowCard = ({ children, className = "", scaleOnHover = true, onClick }) =>
         
         {/* 2. 边框发光层 (加粗加亮版聚光灯边框) */}
         <div 
-          className="pointer-events-none absolute -inset-px rounded-[2.5rem] border-[2.5px] border-blue-400/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+          className="pointer-events-none absolute -inset-px rounded-[2.5rem] border-[2.5px] border-blue-400/80 transition-opacity duration-500 z-10"
           style={{
+            opacity: opacity,
             WebkitMaskImage: `radial-gradient(180px circle at ${position.x}px ${position.y}px, black 0%, transparent 100%)`,
             maskImage: `radial-gradient(180px circle at ${position.x}px ${position.y}px, black 0%, transparent 100%)`
           }}
@@ -226,7 +227,7 @@ const App = () => {
                 <Sparkles size={14} className="text-pink-400" />
                 <span className="text-[10px] font-bold text-pink-400 uppercase tracking-widest">{t.tagline}</span>
               </div>
-              <h1 className={`mb-8 text-white ${lang === 'zh' ? 'font-black text-7xl md:text-9xl leading-tight tracking-wide' : 'font-black text-7xl md:text-9xl leading-none tracking-tighter'}`}>
+              <h1 className={`mb-8 text-white ${lang === 'zh' ? 'font-black text-5xl sm:text-7xl md:text-9xl leading-tight tracking-wide' : 'font-black text-5xl sm:text-7xl md:text-9xl leading-none tracking-tighter'}`}>
                 {lang === 'zh' ? (
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-blue-400 to-blue-500">
                     {t.lastName}{t.firstName}<span className="text-blue-600">.</span>
@@ -238,22 +239,22 @@ const App = () => {
                   </>
                 )}
               </h1>
-              <p className="text-2xl font-medium leading-relaxed text-slate-400 max-w-2xl mb-12 border-l-4 border-blue-800/50 pl-8">
+              <p className="text-lg sm:text-2xl font-medium leading-relaxed text-slate-400 max-w-2xl mb-8 sm:mb-12 border-l-4 border-blue-800/50 pl-6 sm:pl-8">
                 {t.bio}
               </p>
               
-              <div className="flex flex-wrap items-center gap-8">
-                <div className="flex gap-4">
-                  <a href="https://github.com/qitu1" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 text-slate-400 hover:text-white hover:bg-blue-500/10 transition-all border border-white/5 rounded-2xl hover:shadow-lg"><Github size={20} /></a>
-                  <a href="https://www.linkedin.com/in/fengruiqi8" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 text-slate-400 hover:text-white hover:bg-blue-500/10 transition-all border border-white/5 rounded-2xl hover:shadow-lg"><Linkedin size={20} /></a>
-                  <a href="mailto:1758922025@qq.com" className="p-4 bg-white/5 text-slate-400 hover:text-white hover:bg-blue-500/10 transition-all border border-white/5 rounded-2xl hover:shadow-lg"><Mail size={20} /></a>
+              <div className="flex items-center gap-2 sm:gap-8 overflow-x-auto sm:overflow-visible">
+                <div className="flex gap-2 sm:gap-4 shrink-0">
+                  <a href="https://github.com/qitu1" target="_blank" rel="noopener noreferrer" className="p-2.5 sm:p-4 bg-white/5 text-slate-400 hover:text-white hover:bg-blue-500/10 transition-all border border-white/5 rounded-xl sm:rounded-2xl hover:shadow-lg"><Github size={18} className="sm:w-5 sm:h-5" /></a>
+                  <a href="https://www.linkedin.com/in/fengruiqi8" target="_blank" rel="noopener noreferrer" className="p-2.5 sm:p-4 bg-white/5 text-slate-400 hover:text-white hover:bg-blue-500/10 transition-all border border-white/5 rounded-xl sm:rounded-2xl hover:shadow-lg"><Linkedin size={18} className="sm:w-5 sm:h-5" /></a>
+                  <a href="mailto:1758922025@qq.com" className="p-2.5 sm:p-4 bg-white/5 text-slate-400 hover:text-white hover:bg-blue-500/10 transition-all border border-white/5 rounded-xl sm:rounded-2xl hover:shadow-lg"><Mail size={18} className="sm:w-5 sm:h-5" /></a>
                 </div>
                 <a 
                   href={t.resumeUrl}
                   download 
-                  className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest bg-gradient-to-r from-blue-950 via-blue-800 to-blue-950 text-white px-10 py-5 rounded-2xl hover:shadow-[0_0_25px_rgba(37,99,235,0.3)] transition-all transform hover:-translate-y-1"
+                  className="group flex-1 sm:flex-none flex items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-bold uppercase tracking-widest bg-gradient-to-r from-blue-950 via-blue-800 to-blue-950 text-white px-4 py-3 sm:px-10 sm:py-5 rounded-xl sm:rounded-2xl hover:shadow-[0_0_25px_rgba(37,99,235,0.3)] transition-all transform hover:-translate-y-1 whitespace-nowrap"
                 >
-                  {t.resume} <Download size={18} className="group-hover:translate-y-1 transition-transform" />
+                  {t.resume} <Download size={16} className="sm:w-[18px] sm:h-[18px] group-hover:translate-y-1 transition-transform" />
                 </a>
               </div>
             </div>
@@ -281,9 +282,9 @@ const App = () => {
           <div className="space-y-8">
             {t.education.map((item, idx) => (
               <GlowCard key={idx} scaleOnHover={true}>
-                <div className="relative p-10">
-                  <div className="absolute top-8 right-10 text-[10px] font-black text-blue-400 tracking-widest uppercase bg-blue-500/5 px-3 py-1 rounded-sm border border-blue-500/10">{item.date}</div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{item.school}</h3>
+                <div className="relative p-6 sm:p-10">
+                  <div className="mb-3 sm:mb-0 sm:absolute sm:top-8 sm:right-10 text-[10px] font-black text-blue-400 tracking-widest uppercase bg-blue-500/5 px-3 py-1 rounded-sm border border-blue-500/10 w-fit">{item.date}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{item.school}</h3>
                   <p className="text-blue-400/80 font-bold text-xs tracking-wide uppercase mb-6">{item.sub}</p>
                   <div className="space-y-3">
                     {item.details.map((detail, dIdx) => (
@@ -383,17 +384,17 @@ const App = () => {
           <h2 className={`font-bold tracking-[0.6em] uppercase text-slate-500 mb-16 flex items-center gap-4 ${lang === 'zh' ? 'text-sm' : 'text-xs'}`}>
             <span className="w-12 h-px bg-slate-800"></span> {t.sections.skill}
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4">
             {t.techStack.map((tech, idx) => (
               <div 
                 key={idx} 
-                className="group relative flex flex-col items-center justify-center p-6 bg-[#0c1017] rounded-[1.5rem] border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
+                className="group relative flex flex-col items-center justify-center p-4 sm:p-6 bg-[#0c1017] rounded-2xl sm:rounded-[1.5rem] border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
               >
                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                 <div className="w-12 h-12 bg-[#1a1f2e] rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 border border-white/5 group-hover:border-white/10 shadow-inner">
-                   <img src={tech.icon} alt={tech.name} className="w-6 h-6" />
+                 <div className="w-8 h-8 sm:w-12 sm:h-12 bg-[#1a1f2e] rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-105 transition-transform duration-300 border border-white/5 group-hover:border-white/10 shadow-inner">
+                   <img src={tech.icon} alt={tech.name} className="w-4 h-4 sm:w-6 sm:h-6" />
                  </div>
-                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-blue-400 transition-colors">
+                 <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-blue-400 transition-colors text-center leading-none">
                    {tech.name}
                  </span>
               </div>

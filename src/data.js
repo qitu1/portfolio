@@ -77,7 +77,7 @@ export const content = {
           ]
         },
         {
-          title: "SmartChef AI",
+          title: "SmartChef 智能菜谱推荐",
           tags: ["Vue.js", "Python", "LLM", "Scikit-learn"],
           image: "/images/smartchef.jpg",
           desc: "数据驱动的智能烹饪推荐模型。利用聚类算法并集成大语言模型生成创意菜谱。",
