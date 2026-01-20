@@ -14,7 +14,8 @@ import {
   ShieldCheck,
   Zap,
   Sparkles,
-  X
+  X,
+  Menu
 } from 'lucide-react';
 import { content } from './data';
 
@@ -96,6 +97,7 @@ const App = () => {
   const [lang, setLang] = useState('en');
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -191,18 +193,26 @@ const App = () => {
         </div>
       )}
 
+      {/* Mobile Menu Overlay (Outside Nav to avoid backdrop-filter constraint) */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 z-[49] bg-transparent" 
+          onClick={() => setIsMobileMenuOpen(false)} 
+        />
+      )}
+
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-[#07090e]/90 backdrop-blur-xl py-4 border-b border-white/5 shadow-2xl' : 'bg-transparent py-8'}`}>
-        <div className="max-w-7xl mx-auto px-8 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-8 flex justify-between items-center relative">
           <div className="flex items-center gap-3 group cursor-pointer">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 rounded-lg flex items-center justify-center group-hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all">
-              <span className="text-white font-black text-lg">F</span>
+              <span className="text-white font-black text-lg">Q</span>
             </div>
             <span className="font-black text-slate-100 tracking-tighter text-xl uppercase hidden sm:block">
               {t.lastName}{t.firstName}
             </span>
           </div>
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-4 sm:gap-10">
             <div className={`hidden md:flex gap-8 font-bold uppercase tracking-[0.2em] text-slate-400 ${lang === 'zh' ? 'text-xs' : 'text-[11px]'}`}>
               {t.nav.map((item) => (
                 <a key={item.id} href={`#${item.id}`} className="hover:text-blue-400 transition-colors">{item.name}</a>
@@ -214,7 +224,29 @@ const App = () => {
             >
               {lang === 'zh' ? 'English' : '中文'}
             </button>
+            <button 
+              className="md:hidden p-1 text-slate-300 hover:text-white transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
+          
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="absolute top-full right-8 mt-2 w-36 bg-[#0c1017] border border-white/10 rounded-2xl shadow-2xl p-2 z-[50] flex flex-col items-center animate-in fade-in zoom-in-95 duration-200">
+              {t.nav.map((item) => (
+                <a 
+                  key={item.id} 
+                  href={`#${item.id}`} 
+                  className={`w-full text-center px-4 py-3 text-xs font-bold uppercase ${lang === 'zh' ? 'tracking-[0.4em]' : 'tracking-widest'} text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </nav>
 
@@ -388,13 +420,13 @@ const App = () => {
             {t.techStack.map((tech, idx) => (
               <div 
                 key={idx} 
-                className="group relative flex flex-col items-center justify-center p-4 sm:p-6 bg-[#0c1017] rounded-2xl sm:rounded-[1.5rem] border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
+                className="group relative flex flex-col items-center justify-center p-2 sm:p-6 bg-[#0c1017] rounded-xl sm:rounded-[1.5rem] border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
               >
                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                 <div className="w-8 h-8 sm:w-12 sm:h-12 bg-[#1a1f2e] rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-105 transition-transform duration-300 border border-white/5 group-hover:border-white/10 shadow-inner">
+                 <div className="w-8 h-8 sm:w-12 sm:h-12 bg-[#1a1f2e] rounded-lg sm:rounded-xl flex items-center justify-center mb-2 sm:mb-4 group-hover:scale-105 transition-transform duration-300 border border-white/5 group-hover:border-white/10 shadow-inner">
                    <img src={tech.icon} alt={tech.name} className="w-4 h-4 sm:w-6 sm:h-6" />
                  </div>
-                 <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-blue-400 transition-colors text-center leading-none">
+                 <span className="text-[6px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-blue-400 transition-colors text-center leading-none break-all sm:break-normal">
                    {tech.name}
                  </span>
               </div>
