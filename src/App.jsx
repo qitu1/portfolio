@@ -139,7 +139,6 @@ const App = () => {
     const carousel = projectCarouselRef.current;
     if (!carousel) return;
 
-    carousel.setPointerCapture(event.pointerId);
     projectDragRef.current = {
       active: true,
       startX: event.clientX,
@@ -156,6 +155,9 @@ const App = () => {
 
     const delta = event.clientX - drag.startX;
     if (Math.abs(delta) > 6) {
+      if (!carousel.hasPointerCapture(event.pointerId)) {
+        carousel.setPointerCapture(event.pointerId);
+      }
       suppressProjectClickRef.current = true;
       carousel.scrollLeft = drag.scrollLeft - delta;
     }

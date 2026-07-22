@@ -40,8 +40,7 @@ export const content = {
           date: "2022.09 - 2026.06",
           details: [
             "GPA: 4.08/5.0（86/100）",
-            "荣誉奖项：全国大学生英语竞赛一等奖、校级奖学金",
-            "获选 2026 年“双一流”建设本科拔尖创新人才培养专项经费资助",
+            "荣誉奖项：全国大学生英语竞赛一等奖、校级奖学金、获选 2026 年“双一流”建设本科拔尖创新人才培养专项经费资助",
             "核心课程：数据结构、算法、操作系统、计算机网络、数据库原理、编译原理"
           ]
         }
@@ -173,7 +172,7 @@ export const content = {
           school: "National University of Singapore",
           sub: "School of Computing | One-Year Exchange Programme",
           date: "AUG 2025 - MAY 2026",
-          details: ["GPA: 4.67/5.0", "Completed a one-year academic exchange at NUS"]
+          details: ["GPA: 4.67/5.0", "Courses: Computer Vision, Data Mining & DL/ML, Software Engineering, Graphics, Network Security"]
         },
         {
           school: "Huazhong Univ. of Science & Tech",
@@ -181,8 +180,7 @@ export const content = {
           date: "SEP 2022 - JUN 2026",
           details: [
             "GPA: 4.08/5.0 (86/100)",
-            "Honours: First Prize, National English Competition for College Students; University Scholarship",
-            "Selected for the 2026 Double First-Class Undergraduate Innovation Talent Development Fund",
+            "Honours: First Prize, National English Competition for College Students; University Scholarship; Selected for the 2026 Double First-Class Undergraduate Innovation Talent Development Fund",
             "Core Courses: Data Structures, Algorithms, Operating Systems, Computer Networks, Database Principles, Compiler Principles"
           ]
         }
