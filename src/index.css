@@ -3,3 +3,12 @@
 body {
     background-color: #07090e;
 }
+
+.project-carousel {
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+}
+
+.project-carousel::-webkit-scrollbar {
+    display: none;
+}

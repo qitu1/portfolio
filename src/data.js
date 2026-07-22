@@ -24,18 +24,42 @@ export const content = {
       education: [
         {
           school: "新加坡国立大学 (NUS)",
-          sub: "School of Computing | NGNE 项目",
+          sub: "计算机学院 | 计算机科学硕士",
+          date: "2026.08 - 2027.06",
+          details: []
+        },
+        {
+          school: "新加坡国立大学 (NUS)",
+          sub: "计算机学院 | 一年交流项目（NGNE）",
           date: "2025.08 - 2026.05",
-          details: ["修读课程：计算机视觉、数据挖掘与DL/ML、软件工程、图形学、网络安全"]
+          details: ["GPA: 4.67/5.0", "修读课程：计算机视觉、数据挖掘与DL/ML、软件工程、图形学、网络安全"]
         },
         {
           school: "华中科技大学 (HUST)",
           sub: "计算机科学与技术 | 本科 | 工学学士",
           date: "2022.09 - 2026.06",
-          details: ["GPA: 86.04/100 (4.08/5.0)", "核心课程：数据结构、算法、操作系统、计算机网络、数据库原理、编译原理"]
+          details: [
+            "GPA: 4.08/5.0（86/100）",
+            "荣誉奖项：全国大学生英语竞赛一等奖、校级奖学金",
+            "获选 2026 年“双一流”建设本科拔尖创新人才培养专项经费资助",
+            "核心课程：数据结构、算法、操作系统、计算机网络、数据库原理、编译原理"
+          ]
         }
       ],
       experience: [
+        {
+          company: "长江设计集团信达公司",
+          role: "AI Agent 研发实习生",
+          date: "2026.06 - 2026.08",
+          image: "/images/agent.png",
+          desc: "基于 LangGraph 驱动的 DeerFlow 框架构建防汛智能体平台，覆盖监测查询、汛情研判、洪水预警、水库调度与方案决策。",
+          fullDesc: [
+            "参与构建融合大模型、多 Skill 编排与水雨工情数据服务的防汛智能体平台，支持监测查询、汛情研判、洪水预报预警、水库调度及方案决策。",
+            "搭建智能体测评系统，批量执行 10 类业务任务集并回溯 Trace，构建任务达成度、格式合规、规划效率与 Skill 精准度等结果及过程指标；支持 Excel 用例导入、任务筛选、并发运行、断点恢复、评分重算及报告生成。",
+            "基于 SkillOpt 开发 DeerFlow 适配层，通过隔离 Gateway 注入候选 SKILL.md，复用测评链路完成任务执行、Trace 与指标回传、Reflection 更新及 Validation Gate，将技能测评通过率提升 10%。",
+            "参与主动式防汛预警助手开发，实现自然语言创建预警、定时及周期任务，打通接口取数、规则/LLM 预警识别、记录级幂等、值班人员匹配、未读升级与飞书富媒体推送链路。"
+          ]
+        },
         {
           company: "HGTECH (华工科技)",
           role: "AI 算法实习生",
@@ -50,6 +74,18 @@ export const content = {
         }
       ],
       projects: [
+        {
+          title: "基于深度学习的产品美学评估",
+          tags: ["PyTorch", "ResNet18", "SqueezeNet", "Multimodal"],
+          image: "/images/aesthetic.png",
+          desc: "融合图像特征与用户属性的个性化产品美学预测系统，在腕表数据集上完成回归建模与多模型对比。",
+          github: "https://github.com/qitu1/CP3106",
+          fullDesc: [
+            "面向电商产品设计场景，将图像美学评价建模为连续值回归任务；构建腕表图像数据集并设计网页标注工具，完成 1–5 分审美评分与六类风格标签标注。",
+            "基于 PyTorch 设计 ResNet18（迁移学习）、轻量 CNN 和 SqueezeNet2 三个模型，对比不同复杂度与结构的网络在小样本场景下的表现，在全量数据上实现 MSE 0.745，并通过子集分析验证迁移学习的有效性。",
+            "融合图像特征与 18 维用户属性构建多流神经网络，实现个性化审美预测；通过消融实验分析用户特征作用，验证用户建模对偏好预测的关键影响。"
+          ]
+        },
         {
           title: "PeerPrep 协同编程平台",
           tags: ["Next.js", "TypeScript", "Redis", "RabbitMQ", "Microservices"],
@@ -129,18 +165,42 @@ export const content = {
       education: [
         {
           school: "National University of Singapore",
-          sub: "School of Computing | NGNE",
-          date: "AUG 2025 - PRESENT",
-          details: ["Courses: Computer Vision, Data Mining & DL/ML, Software Engineering, Graphics, Network Security"]
+          sub: "School of Computing | Master's in Computer Science",
+          date: "AUG 2026 - JUN 2027",
+          details: []
+        },
+        {
+          school: "National University of Singapore",
+          sub: "School of Computing | One-Year Exchange Programme",
+          date: "AUG 2025 - MAY 2026",
+          details: ["GPA: 4.67/5.0", "Completed a one-year academic exchange at NUS"]
         },
         {
           school: "Huazhong Univ. of Science & Tech",
           sub: "B.Eng. in Computer Science",
           date: "SEP 2022 - JUN 2026",
-          details: ["GPA: 86.04/100 (4.08/5.0)", "Core Courses: Data Structures, Algorithms, Operating Systems, Computer Networks, Database Principles, Compiler Principles"]
+          details: [
+            "GPA: 4.08/5.0 (86/100)",
+            "Honours: First Prize, National English Competition for College Students; University Scholarship",
+            "Selected for the 2026 Double First-Class Undergraduate Innovation Talent Development Fund",
+            "Core Courses: Data Structures, Algorithms, Operating Systems, Computer Networks, Database Principles, Compiler Principles"
+          ]
         }
       ],
       experience: [
+        {
+          company: "Changjiang Design Group Xinda",
+          role: "AI Agent R&D Intern",
+          date: "JUN 2026 - AUG 2026",
+          image: "/images/agent.png",
+          desc: "Built a flood-control agent platform on the LangGraph-powered DeerFlow framework for monitoring, forecasting, reservoir operations, and decision support.",
+          fullDesc: [
+            "Contributed to a flood-control agent platform integrating large language models, multi-Skill orchestration, and hydrological data services for monitoring queries, flood situation assessment, forecasting and early warning, reservoir operations, and response planning.",
+            "Built an agent evaluation system that batch-executed 10 categories of operational tasks and replayed traces. Designed outcome and process metrics for task completion, format compliance, planning efficiency, and Skill precision, with Excel case import, task filtering, concurrent execution, checkpoint recovery, rescoring, and report generation.",
+            "Developed a DeerFlow adapter for SkillOpt, using an isolated Gateway to inject candidate SKILL.md files and reusing the evaluation pipeline for execution, trace and metric reporting, Reflection updates, and a Validation Gate, improving the Skill evaluation pass rate by 10%.",
+            "Helped develop a proactive flood-warning assistant that creates alerts and scheduled or recurring tasks from natural language, connecting data retrieval, rule/LLM-based warning detection, record-level idempotency, duty-staff matching, unread escalation, and rich-media notifications through Lark."
+          ]
+        },
         {
           company: "HGTECH",
           role: "AI Algorithm Intern",
@@ -156,6 +216,18 @@ export const content = {
         }
       ],
       projects: [
+        {
+          title: "Deep Learning for Product Aesthetics",
+          tags: ["PyTorch", "ResNet18", "SqueezeNet", "Multimodal"],
+          image: "/images/aesthetic.png",
+          desc: "Personalised product-aesthetics prediction by combining visual features with user attributes on a custom watch dataset.",
+          github: "https://github.com/qitu1/CP3106",
+          fullDesc: [
+            "Formulated image aesthetics for e-commerce product design as a continuous regression task. Built a watch-image dataset and a web annotation tool to collect 1–5 aesthetic scores and six style labels.",
+            "Implemented ResNet18 with transfer learning, a lightweight CNN, and SqueezeNet2 in PyTorch to compare architectures of different complexity under limited data. Achieved an MSE of 0.745 on the full dataset and validated the effectiveness of transfer learning through subset analysis.",
+            "Built a multi-stream neural network that fused image features with 18-dimensional user attributes for personalised aesthetic prediction. Ablation studies demonstrated the importance of user modelling for preference prediction."
+          ]
+        },
         {
           title: "PeerPrep Platform",
           tags: ["Next.js", "TypeScript", "Redis", "RabbitMQ", "Microservices"],
