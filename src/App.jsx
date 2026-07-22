@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Github, 
   Linkedin, 
@@ -15,9 +15,7 @@ import {
   Zap,
   Sparkles,
   X,
-  Menu,
-  ChevronLeft,
-  ChevronRight
+  Menu
 } from 'lucide-react';
 import { content } from './data';
 
@@ -100,102 +98,70 @@ const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProjectPaused, setIsProjectPaused] = useState(false);
-  const projectCarouselRef = useRef(null);
-  const projectDragRef = useRef({ active: false, startX: 0, scrollLeft: 0 });
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const projectDragRef = useRef({ active: false, startX: 0, dragged: false });
   const suppressProjectClickRef = useRef(false);
   const t = content[lang];
-
-  const scrollProjects = useCallback((direction) => {
-    const carousel = projectCarouselRef.current;
-    if (!carousel) return;
-
-    const cards = carousel.querySelectorAll('[data-project-card]');
-    if (!cards.length) return;
-
-    const step = cards.length > 1
-      ? cards[1].offsetLeft - cards[0].offsetLeft
-      : cards[0].offsetWidth;
-    const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-    const atStart = carousel.scrollLeft <= 8;
-    const atEnd = carousel.scrollLeft >= maxScrollLeft - 8;
-
-    if (direction > 0 && atEnd) {
-      carousel.scrollTo({ left: 0, behavior: 'smooth' });
-      return;
-    }
-
-    if (direction < 0 && atStart) {
-      carousel.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
-      return;
-    }
-
-    carousel.scrollBy({ left: direction * step, behavior: 'smooth' });
-  }, []);
 
   const handleProjectPointerDown = (event) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
 
-    const carousel = projectCarouselRef.current;
-    if (!carousel) return;
-
     projectDragRef.current = {
       active: true,
       startX: event.clientX,
-      scrollLeft: carousel.scrollLeft
+      dragged: false
     };
     suppressProjectClickRef.current = false;
-    setIsProjectPaused(true);
   };
 
   const handleProjectPointerMove = (event) => {
-    const carousel = projectCarouselRef.current;
     const drag = projectDragRef.current;
-    if (!carousel || !drag.active) return;
+    if (!drag.active) return;
 
     const delta = event.clientX - drag.startX;
-    if (Math.abs(delta) > 6) {
-      if (!carousel.hasPointerCapture(event.pointerId)) {
-        carousel.setPointerCapture(event.pointerId);
+    if (Math.abs(delta) > 10) {
+      if (!drag.dragged) {
+        event.currentTarget.setPointerCapture(event.pointerId);
+        drag.dragged = true;
       }
       suppressProjectClickRef.current = true;
-      carousel.scrollLeft = drag.scrollLeft - delta;
     }
   };
 
   const handleProjectPointerEnd = (event) => {
-    const carousel = projectCarouselRef.current;
-    projectDragRef.current.active = false;
+    const drag = projectDragRef.current;
+    if (!drag.active) return;
+    drag.active = false;
 
-    if (carousel?.hasPointerCapture(event.pointerId)) {
-      carousel.releasePointerCapture(event.pointerId);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
     }
 
-    if (suppressProjectClickRef.current) {
+    const distance = event.clientX - drag.startX;
+    if (drag.dragged && Math.abs(distance) >= 48) {
+      const direction = distance < 0 ? 1 : -1;
+      setActiveProjectIndex((current) => (
+        (current + direction + t.projects.length) % t.projects.length
+      ));
+    }
+
+    if (drag.dragged) {
       window.setTimeout(() => {
         suppressProjectClickRef.current = false;
       }, 0);
     }
-
-    setIsProjectPaused(event.pointerType === 'mouse');
   };
+
+  const projectSlots = [-1, 0, 1].map((offset) => {
+    const index = (activeProjectIndex + offset + t.projects.length) % t.projects.length;
+    return { project: t.projects[index], offset };
+  });
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    projectCarouselRef.current?.scrollTo({ left: 0, behavior: 'auto' });
-  }, [lang]);
-
-  useEffect(() => {
-    if (isProjectPaused || t.projects.length <= 1) return undefined;
-
-    const timer = window.setInterval(() => scrollProjects(1), 5000);
-    return () => window.clearInterval(timer);
-  }, [isProjectPaused, scrollProjects, t.projects.length]);
 
   // 禁止背景滚动当模态框打开时
   useEffect(() => {
@@ -457,100 +423,79 @@ const App = () => {
 
         {/* 核心项目 */}
         <section id="projects" className="mb-48 scroll-mt-32">
-          <div className="mb-10 sm:mb-16 flex items-center justify-between gap-6">
-            <h2 className={`font-bold tracking-[0.6em] uppercase text-slate-500 flex items-center gap-4 ${lang === 'zh' ? 'text-sm' : 'text-xs'}`}>
-              <span className="w-12 h-px bg-slate-800"></span> {t.sections.pro}
-            </h2>
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() => scrollProjects(-1)}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 bg-white/5 text-slate-400 hover:text-white hover:border-blue-500/40 hover:bg-blue-500/10 transition-all flex items-center justify-center"
-                aria-label={lang === 'zh' ? '查看上一组项目' : 'View previous projects'}
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollProjects(1)}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 bg-white/5 text-slate-400 hover:text-white hover:border-blue-500/40 hover:bg-blue-500/10 transition-all flex items-center justify-center"
-                aria-label={lang === 'zh' ? '查看更多项目' : 'View more projects'}
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          </div>
-
+          <h2 className={`font-bold tracking-[0.6em] uppercase text-slate-500 mb-10 sm:mb-16 flex items-center gap-4 ${lang === 'zh' ? 'text-sm' : 'text-xs'}`}>
+            <span className="w-12 h-px bg-slate-800"></span> {t.sections.pro}
+          </h2>
           <div
-            className="relative"
-            onMouseEnter={() => setIsProjectPaused(true)}
-            onMouseLeave={() => setIsProjectPaused(false)}
+            className="relative h-[32rem] sm:h-[35rem] overflow-hidden touch-pan-y cursor-grab active:cursor-grabbing select-none"
+            onPointerDown={handleProjectPointerDown}
+            onPointerMove={handleProjectPointerMove}
+            onPointerUp={handleProjectPointerEnd}
+            onPointerCancel={handleProjectPointerEnd}
+            aria-label={lang === 'zh' ? '项目轮播' : 'Project carousel'}
           >
-            <div className="pointer-events-none absolute inset-y-4 left-0 z-10 w-8 bg-gradient-to-r from-[#07090e] to-transparent opacity-0 md:opacity-100" />
-            <div className="pointer-events-none absolute inset-y-4 right-0 z-10 w-8 bg-gradient-to-l from-[#07090e] to-transparent opacity-0 md:opacity-100" />
-            <div
-              ref={projectCarouselRef}
-              className="project-carousel flex gap-6 md:gap-10 overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-y cursor-grab active:cursor-grabbing pb-6"
-              onPointerDown={handleProjectPointerDown}
-              onPointerMove={handleProjectPointerMove}
-              onPointerUp={handleProjectPointerEnd}
-              onPointerCancel={handleProjectPointerEnd}
-              aria-label={lang === 'zh' ? '项目轮播' : 'Project carousel'}
-            >
-              {t.projects.map((project) => (
-                <div
-                  key={project.title}
-                  data-project-card
-                  className="w-full md:w-[calc((100%-5rem)/3)] shrink-0 snap-start"
+            {projectSlots.map(({ project, offset }) => (
+              <div
+                key={project.title}
+                className={`absolute left-1/2 top-0 h-[31rem] sm:h-[34rem] w-[min(88vw,28rem)] transition-all duration-500 ease-out ${
+                  offset === 0 ? 'z-20' : 'hidden sm:block z-10'
+                }`}
+                style={{
+                  transform: `translateX(-50%) translateX(${offset * 92}%) scale(${offset === 0 ? 1 : 0.78})`,
+                  opacity: offset === 0 ? 1 : 0.42,
+                  filter: offset === 0 ? 'none' : 'saturate(0.65)'
+                }}
+              >
+                <GlowCard
+                  className="h-full flex flex-col"
+                  scaleOnHover={offset === 0}
+                  onClick={() => {
+                    if (!suppressProjectClickRef.current) setSelectedItem(project);
+                  }}
                 >
-                  <GlowCard
-                    className="h-full flex flex-col"
-                    scaleOnHover={true}
-                    onClick={() => {
-                      if (!suppressProjectClickRef.current) setSelectedItem(project);
-                    }}
-                  >
-                    <div className="p-4 h-full flex flex-col">
-                      <div className="aspect-[4/3] overflow-hidden rounded-[1.5rem] mb-8 relative">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          draggable="false"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 select-none"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#07090e]/30" />
-                      </div>
-                      <div className="px-4 pb-6 mt-auto">
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.tags.map(tag => (
-                            <span key={tag} className="text-[9px] font-bold px-3 py-1 border border-blue-500/20 text-blue-400/80 uppercase rounded-sm group-hover:border-blue-400/40 transition-colors">{tag}</span>
-                          ))}
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-3 flex justify-between items-center transition-colors">
-                          {project.title}
-                          {project.github ? (
-                            <a
-                              href={project.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="hover:bg-white/5 rounded-full p-1 -mr-1 transition-colors"
-                              aria-label={`${project.title} GitHub`}
-                            >
-                              <ArrowUpRight size={18} className="text-slate-600 group-hover:text-blue-400 group-hover:-translate-y-0.5 transition-all" />
-                            </a>
-                          ) : (
-                            <ArrowUpRight size={18} className="text-slate-600 group-hover:text-blue-400 group-hover:-translate-y-0.5 transition-all" />
-                          )}
-                        </h3>
-                        <p className="text-sm text-slate-500 leading-relaxed line-clamp-2">{project.desc}</p>
-                      </div>
+                  <div className="p-4 h-full flex flex-col">
+                    <div className="aspect-[4/3] overflow-hidden rounded-[1.5rem] mb-8 relative">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        draggable="false"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 select-none"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#07090e]/30" />
                     </div>
-                  </GlowCard>
-                </div>
-              ))}
-            </div>
+                    <div className="px-4 pb-6 mt-auto">
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map(tag => (
+                          <span key={tag} className="text-[9px] font-bold px-3 py-1 border border-blue-500/20 text-blue-400/80 uppercase rounded-sm group-hover:border-blue-400/40 transition-colors">{tag}</span>
+                        ))}
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-3 flex justify-between items-center transition-colors">
+                        {project.title}
+                        {project.github ? (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(event) => event.stopPropagation()}
+                            className="hover:bg-white/5 rounded-full p-1 -mr-1 transition-colors"
+                            aria-label={`${project.title} GitHub`}
+                          >
+                            <ArrowUpRight size={18} className="text-slate-600 group-hover:text-blue-400 group-hover:-translate-y-0.5 transition-all" />
+                          </a>
+                        ) : (
+                          <ArrowUpRight size={18} className="text-slate-600 group-hover:text-blue-400 group-hover:-translate-y-0.5 transition-all" />
+                        )}
+                      </h3>
+                      <p className="text-sm text-slate-500 leading-relaxed line-clamp-2">{project.desc}</p>
+                    </div>
+                  </div>
+                </GlowCard>
+              </div>
+            ))}
           </div>
+          <p className="mt-6 text-center text-[10px] font-bold uppercase tracking-[0.25em] text-slate-600">
+            {lang === 'zh' ? '拖动浏览全部项目' : 'Drag to explore all projects'}
+          </p>
         </section>
 
         {/* 技术栈 - 纯图标版 */}
