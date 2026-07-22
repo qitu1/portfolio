@@ -127,15 +127,19 @@ export const content = {
       ],
       techStack: [
         { name: "Python", icon: "https://cdn.simpleicons.org/python" },
+        { name: "JavaScript", icon: "https://cdn.simpleicons.org/javascript" },
         { name: "PyTorch", icon: "https://cdn.simpleicons.org/pytorch" },
         { name: "TensorFlow", icon: "https://cdn.simpleicons.org/tensorflow" },
         { name: "C++", icon: "https://cdn.simpleicons.org/cplusplus" },
         { name: "LangChain", icon: "https://cdn.simpleicons.org/langchain" },
+        { name: "LangGraph", icon: "https://cdn.simpleicons.org/langgraph" },
         { name: "OpenCV", icon: "https://cdn.simpleicons.org/opencv" },
         { name: "Docker", icon: "https://cdn.simpleicons.org/docker" },
         { name: "Kubernetes", icon: "https://cdn.simpleicons.org/kubernetes" },
+        { name: "Apache Kafka", icon: "https://cdn.simpleicons.org/apachekafka" },
         { name: "Redis", icon: "https://cdn.simpleicons.org/redis" },
         { name: "RabbitMQ", icon: "https://cdn.simpleicons.org/rabbitmq" },
+        { name: "Git", icon: "https://cdn.simpleicons.org/git" },
         { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript" },
         { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/white" }
       ]
@@ -269,15 +273,19 @@ export const content = {
       ],
       techStack: [
         { name: "Python", icon: "https://cdn.simpleicons.org/python" },
+        { name: "JavaScript", icon: "https://cdn.simpleicons.org/javascript" },
         { name: "PyTorch", icon: "https://cdn.simpleicons.org/pytorch" },
         { name: "TensorFlow", icon: "https://cdn.simpleicons.org/tensorflow" },
         { name: "C++", icon: "https://cdn.simpleicons.org/cplusplus" },
         { name: "LangChain", icon: "https://cdn.simpleicons.org/langchain" },
+        { name: "LangGraph", icon: "https://cdn.simpleicons.org/langgraph" },
         { name: "OpenCV", icon: "https://cdn.simpleicons.org/opencv" },
         { name: "Docker", icon: "https://cdn.simpleicons.org/docker" },
         { name: "Kubernetes", icon: "https://cdn.simpleicons.org/kubernetes" },
+        { name: "Apache Kafka", icon: "https://cdn.simpleicons.org/apachekafka" },
         { name: "Redis", icon: "https://cdn.simpleicons.org/redis" },
         { name: "RabbitMQ", icon: "https://cdn.simpleicons.org/rabbitmq" },
+        { name: "Git", icon: "https://cdn.simpleicons.org/git" },
         { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript" },
         { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/white" }
       ]

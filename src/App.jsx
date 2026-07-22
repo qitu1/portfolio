@@ -94,11 +94,11 @@ const GlowCard = ({ children, className = "", scaleOnHover = true, onClick }) =>
 };
 
 const App = () => {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState('zh');
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [activeProjectIndex, setActiveProjectIndex] = useState(1);
   const projectDragRef = useRef({ active: false, startX: 0, dragged: false });
   const suppressProjectClickRef = useRef(false);
   const t = content[lang];
@@ -442,8 +442,8 @@ const App = () => {
                 }`}
                 style={{
                   transform: `translateX(-50%) translateX(${offset * 92}%) scale(${offset === 0 ? 1 : 0.78})`,
-                  opacity: offset === 0 ? 1 : 0.42,
-                  filter: offset === 0 ? 'none' : 'saturate(0.65)'
+                  opacity: offset === 0 ? 1 : 0.7,
+                  filter: offset === 0 ? 'none' : 'saturate(0.88)'
                 }}
               >
                 <GlowCard
