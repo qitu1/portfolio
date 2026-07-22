@@ -115,6 +115,7 @@ export const content = {
           title: "SmartChef 智能菜谱推荐",
           tags: ["Vue.js", "Python", "LLM", "Scikit-learn"],
           image: "/images/smartchef.jpg",
+          github: "https://github.com/Ch1ldKing/food",
           desc: "数据驱动的智能烹饪推荐模型。利用聚类算法并集成大语言模型生成创意菜谱。",
           fullDesc: [
             "构建了一个基于数据挖掘与生成式 AI 的个性化菜谱推荐系统，旨在解决“冰箱剩余食材如何处理”的难题。",
@@ -256,6 +257,7 @@ export const content = {
           title: "SmartChef Engine",
           tags: ["Vue.js", "Python", "LLM", "Scikit-learn"],
           image: "/images/smartchef.jpg",
+          github: "https://github.com/Ch1ldKing/food",
           desc: "Recipe engine via clustering and LLM integration.",
           fullDesc: [
             "Built a personalized recipe recommendation system combining data mining techniques with Generative AI to solve the 'leftover ingredients' problem.",
