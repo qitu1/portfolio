@@ -159,7 +159,7 @@ export const content = {
       ],
       contact: "Contact",
       resume: "Download CV",
-      resumeUrl: "/files/CV.pdf",
+      resumeUrl: "/files/CV_FengRuiqi.pdf",
       sections: {
         edu: "Education",
         exp: "Experience",
